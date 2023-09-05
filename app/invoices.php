@@ -43,7 +43,7 @@ include_once "functions.php";
     <!-- Invoice -->
 
     <main>
-        <div class="row">
+        <div class="row align-items-center justify-content-center">
             <h1 style="width:100%;">Previous purchases</h1>
             <?php
             $ip = getIp();
@@ -88,9 +88,9 @@ include_once "functions.php";
                                     } else if ($status == -1) {
                                         $status = "<span style='color: red' id='status'>Unpaid.</span>";
                                     } else if ($status == -2) {
-                                        $status = "<span style='color: red' id='status'>Missing amount. Please complete payment amount.</span>";
+                                        $status = "<span style='color: red' id='status'>Missing amount.</span>";
                                     } else {
-                                        $status = "<span style='color: red' id='status'>Error, expired payment link.</span>";
+                                        $status = "<span style='color: red' id='status'>Expired.</span>";
                                     }
                                     echo $status;
                                     ?></td>
