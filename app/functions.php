@@ -259,3 +259,37 @@ function getAddressFromInvoice($invoice)
     }
     return $address;
 }
+
+// function to get address from payment
+function getAddressFromPayment($txid)
+{
+    global $conn;
+    $sql = "SELECT * FROM `payments` WHERE `txid` = '$txid'";
+    $result = mysqli_query($conn, $sql);
+    $address = "Error, try again getAddressFromPayment";
+    while ($row = mysqli_fetch_assoc($result)) {
+        $address = $row['addr'];
+    }
+    return $address;
+}
+
+// function to get all unconfirmed payments
+function getUnconfirmedPayments()
+{
+    global $conn;
+    $sql = "SELECT * FROM `payments` WHERE `status` = '0'";
+    $result = mysqli_query($conn, $sql);
+    $payments = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($payments, $row);
+    }
+    return $payments;
+}
+
+// function to update payment status
+function updatePaymentStatus($txid, $status)
+{
+    global $conn;
+    $sql = "UPDATE `payments` SET `status` = '$status' WHERE `txid` = '$txid'";
+    mysqli_query($conn, $sql);
+}
