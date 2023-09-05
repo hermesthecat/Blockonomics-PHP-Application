@@ -1,3 +1,13 @@
+# added:
+```
+- Information has been added on the payment page against missing payments.
+- Arrangements were made for listening via websocket in case of missing payment.
+- Added css animation when checkout is complete.
+- The orders.php page has been replaced by the invoinces.php page.
+- All payments made for that invoice are displayed on the payment page.
+```
+
+
 # Blockonomics PHP Application
 This is a web application developed in PHP that utilizes blockonomics.co's api to automate bitcoin payments.
 
