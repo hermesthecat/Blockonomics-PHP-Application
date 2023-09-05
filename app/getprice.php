@@ -7,5 +7,4 @@ $price = getInvoicePrice($invoice);
 
 $price = USDtoBTC($price);
 
-echo $price*100000000;
-?>
+echo $price * 100000000;
