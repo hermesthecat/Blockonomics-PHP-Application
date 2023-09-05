@@ -24,8 +24,6 @@ foreach ($payments as $payment) {
     if ($json['status'] == "Confirmed") {
         updatePaymentStatus($payment['txid'], 2);
         echo "Payment confirmed for " . $payment['txid'] . "<br>";
-    } elseif ($json['status'] == 500) {
-        echo "Invalid TXID: " . $payment['txid'] . "<br>";
     } else {
         echo "Payment not confirmed for " . $payment['txid'] . "<br>";
     }
