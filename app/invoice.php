@@ -52,9 +52,9 @@ if ($status == 0) {
     $status = "<span style='color: red' id='status'>UNPAID</span>";
 } else if ($status == -2) {
     $status = "<span style='color: red' id='status'>Missing amount. Please complete payment amount.<br>
-    Price Amount: $price_btc<br>
-    Total Payment Amount: $total_amount_paid_btc<br>
-    Missing Payment Amount: $missing_amount_btc</span>";
+    Price Amount: <b>$price_btc</b><br>
+    Total Payment Amount: <b>$total_amount_paid_btc</b><br>
+    Missing Payment Amount: <b>$missing_amount_btc</b></span>";
 } else {
     $status = "<span style='color: red' id='status'>Error, expired payment link.</span>";
 }
@@ -102,7 +102,7 @@ if ($status == 0) {
     <!-- Invoice -->
 
     <main>
-        <div class="row text-center">
+        <div class="row text-center align-items-center justify-content-center">
             <h2 style="width:100%;">Invoice Code: <?php echo $code ?></h2>
 
             <?php if ($paid_status) : ?>
@@ -113,17 +113,15 @@ if ($status == 0) {
             <?php endif; ?>
 
             <?php if (!$paid_status) : ?>
-                <p style="display:block;width:100%;">Please pay <?php echo round(USDtoBTC($price), 8); ?> BTC to address: <span id="address"><?php echo $address; ?></span></p>
+                <p style="display:block;width:100%;">Please pay <b><?php echo round(USDtoBTC($price), 8); ?> BTC</b> to address: <b><span id="address"><?php echo $address; ?></b></span></p>
                 <?php
-                // QR code generation using google apis
                 $cht = "qr";
                 $chs = "300x300";
                 $chl = $address;
                 $choe = "UTF-8";
-
                 $qrcode = 'https://chart.googleapis.com/chart?cht=' . $cht . '&chs=' . $chs . '&chl=' . $chl . '&choe=' . $choe;
                 ?>
-                <div class="qr-hold">
+                <div class="qr-hold text-center">
                     <img src="<?php echo $qrcode ?>" alt="My QR code" style="width:250px;">
                 </div>
             <?php endif; ?>
@@ -179,9 +177,9 @@ if ($status == 0) {
                                     } else if ($status == -1) {
                                         $status = "<span style='color: red' id='status'>Unpaid.</span>";
                                     } else if ($status == -2) {
-                                        $status = "<span style='color: red' id='status'>Missing amount. Please complete payment amount.</span>";
+                                        $status = "<span style='color: red' id='status'>Missing amount.</span>";
                                     } else {
-                                        $status = "<span style='color: red' id='status'>Error, expired payment link.</span>";
+                                        $status = "<span style='color: red' id='status'>Expired.</span>";
                                     }
                                     echo $status;
                                     ?></td>
