@@ -17,6 +17,14 @@ if (isset($_GET['invoice_id'])) {
         $paid_status = false;
         $btc_address = getAddress($invoice_id);
     }
+
+
+    $check_invoice_paid_status = checkInvoicePaid($invoice_id);
+    if ($check_invoice_paid_status) {
+        $check_mark = "#73AF55";
+    } else {
+        $check_mark = "#dbbb48";
+    }
 }
 
 $check_invoice_price = compareInvoicePriceWithUpdatedPrice($invoice_id);
@@ -96,14 +104,17 @@ $statusval = $invoice_status;
             <h2 style="width:100%;">Invoice ID: <?php echo $invoice_id ?></h2>
 
             <?php if ($paid_status) : ?>
-                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                </svg>
+                <div class="w4rAnimated_checkmark">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                        <circle class="path circle" fill="none" stroke="<?php echo $check_mark; ?>" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                        <polyline class="path check" fill="none" stroke="<?php echo $check_mark; ?>" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+                    </svg>
+                </div>
+                <br> <br>
             <?php endif; ?>
 
             <?php if (!$paid_status) : ?>
-                <p style="display:block;width:100%;">Please pay <b><?php echo round(USDtoBTC($invoice_price), 8); ?> BTC</b> to address: <b><span id="address"><?php echo $btc_address; ?></b></span></p>
+                <p style="display:block;width:100%;">Please pay <b><?php echo $price_btc; ?> </b> to address: <b><span id="address"><?php echo $btc_address; ?></b></span></p>
                 <?php
                 $cht = "qr";
                 $chs = "300x300";
