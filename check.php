@@ -3,7 +3,7 @@
 include_once "config.php";
 include_once "functions.php";
 
-$secretlocal = "your_secret";
+$secretlocal = "rtuertyueyrteyertyert";
 $payment_status = 0;
 
 $payment_txid = $_GET['txid'];
