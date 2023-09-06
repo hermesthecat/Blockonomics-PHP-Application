@@ -507,21 +507,27 @@ function compareInvoicePriceWithUpdatedPrice($invoice_id)
 {
     global $conn;
 
-    $sql = "SELECT * FROM `invoices` WHERE invoice_id = '$invoice_id'";
+    $check_checkInvoicePaid = checkInvoicePaid($invoice_id);
 
-    $result = mysqli_query($conn, $sql);
+    if ($check_checkInvoicePaid) {
+        return;
+    } else {
+        $sql = "SELECT * FROM `invoices` WHERE invoice_id = '$invoice_id'";
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $invoice_price = $row['invoice_price'];
-        $invoice_satoshi = $row['invoice_satoshi'];
-    }
+        $result = mysqli_query($conn, $sql);
 
-    $get_updated_satoshi = convertToSatoshiFromBTC(round(USDtoBTC($invoice_price), 8));
+        while ($row = mysqli_fetch_assoc($result)) {
+            $invoice_price = $row['invoice_price'];
+            $invoice_satoshi = $row['invoice_satoshi'];
+        }
 
-    if ($get_updated_satoshi != $invoice_satoshi) {
-        $sql = "UPDATE `invoices` SET `invoice_satoshi` = '$get_updated_satoshi' WHERE `invoice_id` = '$invoice_id'";
+        $get_updated_satoshi = convertToSatoshiFromBTC(round(USDtoBTC($invoice_price), 8));
 
-        mysqli_query($conn, $sql);
+        if ($get_updated_satoshi != $invoice_satoshi) {
+            $sql = "UPDATE `invoices` SET `invoice_satoshi` = '$get_updated_satoshi' WHERE `invoice_id` = '$invoice_id'";
+
+            mysqli_query($conn, $sql);
+        }
     }
 }
 
